@@ -1,0 +1,69 @@
+
+body.glavna_stran{
+	background-image: url('konstantinopl.jpg');
+}
+
+main {
+	font-family: 	Arial, Verdana, sans-serif;
+	color:		#0404B4;
+	font-size:	15px;
+}
+font.podcrta{
+	text-decoration:underline;
+	color:green;
+	
+}
+font.jj{
+	text-decoration:underline;
+	font-size:	40px;
+	
+}
+
+font.stevilke1{
+
+	font-size:	40px;
+	color:green;
+}
+
+font.tema2{
+	color:red;
+	font-size: 50px;
+	text-decoration:underline;
+	
+}
+
+font.tema3{
+	color:#190710;
+	font-size: 30px;
+
+	
+}
+
+font.tema4{
+	color:#190710;
+	font-size: 45px;
+	text-decoration:underline;
+	
+}
+font.tema5{
+	color:black;
+	font-size: 50px;
+	text-decoration:underline;
+	
+}
+
+
+font.tema{
+	color:green;
+	font-size:	40px;
+	
+}
+
+font.izbran{
+	text-decoration:overline;
+	color:red;
+}
+
+td.barva{
+	style.backgroundColor = "#82FA58";
+}

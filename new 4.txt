@@ -1,0 +1,148 @@
+package graftrikotnikov;
+
+import liki.*;
+
+import java.util.ArrayList;
+public class Graf {
+	public ArrayList<Vozlisce> elementi;
+	
+	public Graf(ArrayList<Triangle> tt){
+		//elementi so vozlišča, vsako vozlišče v sebi hrani vse svoje povezave
+		
+		this.elementi=ustvari_graf(tt);
+		}
+	// če imata 2 trikotnika iz triangulacije skupno stranico sta sosednji
+
+	public ArrayList<Vozlisce> ustvari_graf(ArrayList<Triangle> trikotniki){
+		ArrayList<Vozlisce> e=new ArrayList<Vozlisce>();
+		for(Triangle t: trikotniki){
+			ArrayList<Triangle> p=new ArrayList<Triangle>();
+			for(Vozlisce v: e){
+				if(t.link(v.trikotnik)==true){
+					v.dodaj_povezavo(t);
+					p.add(v.trikotnik);
+				}				
+			}
+			Vozlisce vv=new Vozlisce(t,p);
+			e.add(vv);
+		}
+		return e;
+	}	
+	
+	public int st_povezav(){
+		int k=0;
+		for(Vozlisce x:elementi){
+			k+=x.povezave.size();
+		}
+		return k/2;
+	}
+	public Vozlisce najdi_volisce(Triangle t){
+		Vozlisce k=null;
+		for(Vozlisce v:elementi){
+			if(v.trikotnik==t){
+				k=v;
+			}
+		}
+		return k;
+	}
+	public ArrayList<Vozlisce> sosedje(Vozlisce v){
+		ArrayList<Vozlisce> s= new ArrayList<Vozlisce>();
+		for(Triangle t: v.povezave){
+			Vozlisce vv=najdi_volisce(t);
+			s.add(vv);
+		}
+		return s;
+	}
+	public Vozlisce najdi_vozlisce_tocke(Point p){
+		Vozlisce vv=null;
+		for(Vozlisce v:elementi){
+			if(v.trikotnik.pointInside(p,true)==true){
+				vv=v;
+			}
+		}
+		return vv;
+	}
+	// ta ti vrne trikotnik v katerem se nahaja tocka enako kot prejsna le da ta vrne trikotnik
+	public Triangle moj_trikot(Point p){
+		Vozlisce vv=null;
+		for(Vozlisce v:elementi){
+			if(v.trikotnik.pointInside(p,true)==true){
+				vv=v;
+			}
+		}
+		return vv.trikotnik;
+	}	
+
+
+
+
+	public ArrayList<Vozlisce> pot(Vozlisce p,Vozlisce q){
+		ArrayList<Vozlisce> obiskano=new ArrayList<Vozlisce>();
+		obiskano.add(p);
+		ArrayList<Vozlisce> preglej=new ArrayList<Vozlisce>();		
+		preglej.add(p);
+		int globina=0;
+		p.globina=0;
+		while(obiskano.size()<elementi.size()){
+			ArrayList<Vozlisce> nova=new ArrayList<Vozlisce>();
+			for(Vozlisce x: preglej){
+				for(Vozlisce y:sosedje(x)){
+					if(obiskano.contains(y)==false){
+						y.globina=globina;
+						obiskano.add(y);
+						nova.add(y);
+					}
+				}
+			}
+			globina+=1;
+			preglej.clear();
+			for(Vozlisce op:nova){
+				preglej.add(op);
+			}
+			nova.clear();
+		}
+		ArrayList<Vozlisce> potka=new ArrayList<Vozlisce>();
+
+		boolean isci_naprej=true;
+		
+		while(isci_naprej==true){
+			Vozlisce f=null;
+			for(Vozlisce x:sosedje(q)){
+				if(x==p){
+					potka.add(q);
+					potka.add(p);
+					isci_naprej=false;
+				}
+				else{
+					if(x.globina==q.globina-1){
+						potka.add(q);
+						f=x;
+						
+					}
+				}
+			}
+			q=f;
+		}
+		for(Vozlisce x:elementi){
+			x.globina=-1;
+		}
+		System.out.println("jamamoto");
+		System.out.println(potka.size());		
+		
+		return potka;
+	}
+
+
+	
+
+	//spremeni seznam vozlišč v seznam trikotnikov
+	public ArrayList<Triangle> v_trikotnike(ArrayList<Vozlisce> pot){
+		ArrayList<Triangle> c=new ArrayList<Triangle>();
+		for(Vozlisce x:pot){
+			c.add(x.trikotnik);
+		}
+
+		return c;
+	}
+
+}

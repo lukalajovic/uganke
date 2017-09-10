@@ -1,0 +1,38 @@
+body.sneg{
+	background-image: url('sneg.jpg');
+}
+body.slika {
+	background-image: url('ozadje_spomina.jpg');
+}
+body.bizanc{
+	background-image: url('konstantinopl.jpg');
+}
+body.otok{
+	background-image: url('otok.jpg');
+}
+body.zvezde{
+	background-image: url('zvezde.jpg');
+}
+body.r{
+	background-color: red;
+}
+body.svetlomodro{
+	background-color:#A9E2F3;
+}
+
+p.b{
+	color: blue;
+}
+p.rd{
+	color: red;
+	font-size:25pt;
+}
+ font.v{
+	 font-size:25pt;
+	 color: red;
+ }
+ 
+  font.tema{
+	 font-size:15pt;
+	 color: red;
+ }

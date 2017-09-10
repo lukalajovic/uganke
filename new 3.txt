@@ -1,0 +1,25 @@
+	public ArrayList<Vozlisce> ustvari_graf(ArrayList<Triangle> trikotniki){
+		ArrayList<Vozlisce> graf=new ArrayList<Vozlisce>();
+		for(Triangle t: trikotniki){
+			Vozlisce v=new  Vozlisce(t);
+			for(Triangle tt:trikotniki){
+				if(t.link(tt)){
+					v.dodaj_povezavo(tt);
+					
+				}
+			}
+			graf.add(v);
+
+		}
+		return graf;
+	}
+	public ArrayList<Vozlisce> sosedje(Vozlisce v){
+		ArrayList<Vozlisce> sosedi=new ArrayList<Vozlisce>();
+		for(Vozlisce vv:elementi){
+			if(v.povezave.contains(vv.trikotnik)){
+				sosedi.add(vv);
+			}
+		}
+		
+		return sosedi;
+	}	

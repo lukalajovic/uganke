@@ -1,0 +1,184 @@
+
+<html>
+<head>
+<link rel="stylesheet" type='text/css' href='stil.css'>
+<meta charset="utf-8" />
+<style>
+canvas {
+    border:1px solid #d3d3d3;
+    background-color: #00FF00;
+}
+</style>
+
+</head>
+
+<body class='slika'>
+<center>
+<font  class='v'> SPOMIN </font>
+
+<table width='300' height='100' border='2' bgcolor='#00FF40'>
+<tr>
+<td id='zacni'>začni</td> <td id='navodila'>navodila</td><td><a href='glavna_stran.php'><font class='tema'>nazaj na glavno stran</font></a></td>
+</tr>
+<tr>
+<td>življenja</td><td id='lajfi'>5</td><td>točke</td><td id='tocke'>0</td>
+</tr>
+</table>
+
+</center>
+</br>
+
+
+
+<script src='skupnakoda.js'>
+
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+Sirina=1000;
+Visina=400;
+ustvari_platno(Visina,Sirina);
+
+
+
+function naredi_kord(n,sir){
+	q=new Array()
+
+	var a=0;
+	while(a<n){
+		var t=a*sir/n+50;
+		q.push(t);
+		a+=1;
+	}
+	return q;
+}
+
+function zapomnisi(n,sir,vis,naredi){
+	this.n=n
+	this.vis=vis;
+	this.sir=sir;
+	this.seznam=naredi;
+	this.kordx=naredi_kord(n,sir);
+	this.st=new Array();
+	this.stt=new Array();
+	var i=0;	
+	while(i<n){
+		this.st.push(stevilo(kordx[i],this.vis/2,50,"red",this.seznam[i]));
+
+		i+=1;
+	}
+	}
+	
+
+
+
+
+var n=5;
+var naredi=naredin(n);
+var pom=zapomnisi(n,Sirina,Visina,naredi);
+var prav=true;
+
+var cass=0;
+var myVar = setInterval(myTimer,25);
+var dvakrat=0;
+var lajfi=5;
+var tocka=0;
+
+
+
+function myTimer() {
+	if((cass<150)&&(cass>0)){
+		cass+=1
+	}
+	else{
+		zbrisi_vse(Sirina,Visina);
+
+		cass=0;
+	}
+}
+
+function dod(){
+	cass=1;
+	prav=true;
+	x=document.getElementById("ime");	
+	y=x.elements["name"].value;
+	x.elements["name"].value="";
+	if(y.length!=naredi.length){
+		prav=false;
+	}
+	else{
+		e=0;
+		while(e<n){		
+		var oo=naredi[e];
+		oo.toString();
+		if(y[e]!=oo){
+			prav=false;
+			e=n+1;
+		 }
+		 e+=1;
+		}
+	}
+	if(prav==true){
+		tocka+=10;
+		if(dvakrat==2){			
+			dvakrat=0;
+			n+=1;
+			}
+		else{
+			dvakrat+=1;
+		}
+	}
+	else{
+		lajfi-=1;
+		dvakrat=0;
+	}
+	$('#lajfi').text(lajfi);
+	$('#tocke').text(tocka);	
+	
+	naredi=naredin(n);
+	pom=zapomnisi(n,Sirina,Visina,naredi);
+	
+	
+}
+
+function glavna_funkcija(){
+	if(cass==0&&(lajfi>0)){
+	
+	
+	
+		dod();
+
+		
+	}
+}
+function zacni(){
+	n=5;
+	tocka=0;
+	lajfi=5;
+	dod();
+	
+	
+}
+
+function navodila(){
+	alert("števila se ti bodo prikazala in izginala napiši katera so bila in v kakšnem vrstnem redu so bila");
+}
+
+$('#zacni').click(function(){
+	zacni();
+})
+$('#navodila').click(function(){
+	navodila();
+})
+
+</script>
+<br>
+<form id="ime">
+	napiši:<input  type="text" name="name" size="20">
+</form>
+<button onclick="glavna_funkcija()"> vstavi</button>	
+
+</body>
+
+
+</html>
